@@ -26,14 +26,20 @@ const rows = [
   <div
     class="mx-auto flex w-full max-w-[1200px] flex-col gap-[26px] lg:flex-row lg:items-center lg:gap-[56px]"
   >
-    <div class="flex w-full flex-col gap-[16px] lg:w-[520px] lg:shrink-0">
-      <p class="text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-[12px] lg:tracking-[1.6px]">
+    <div data-reveal-group class="flex w-full flex-col gap-[16px] lg:w-[520px] lg:shrink-0">
+      <p
+        data-reveal="up"
+        class="text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-[12px] lg:tracking-[1.6px]"
+      >
         Jadwal Layanan
       </p>
-      <h2 class="text-[28px] leading-[1.16] font-medium tracking-[-0.6px] text-strong lg:text-[40px] lg:leading-[47px]">
+      <h2
+        data-reveal="up"
+        class="text-[28px] leading-[1.16] font-medium tracking-[-0.6px] text-strong lg:text-[40px] lg:leading-[47px]"
+      >
         Pelayanan mengikuti jam operasional stand.
       </h2>
-      <p class="text-[15px] leading-[1.6] text-body lg:text-[16.5px] lg:leading-[26px]">
+      <p data-reveal="up" class="text-[15px] leading-[1.6] text-body lg:text-[16.5px] lg:leading-[26px]">
         Setoran yang memerlukan pengurus — termasuk pencairan tunai — hanya dilayani pada hari dan jam buka
         stand Bankli.
       </p>
@@ -41,7 +47,7 @@ const rows = [
       <div class="flex flex-col gap-[12px] pt-[8px]">
         {
           notes.map((note) => (
-            <div class="flex items-start gap-[12px] py-[2px]">
+            <div data-reveal="up" class="flex items-start gap-[12px] py-[2px]">
               <span class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] border border-line bg-card">
                 <Icon name={note.icon} class="h-[17px] w-[17px] text-brand-primary" />
               </span>
@@ -56,6 +62,8 @@ const rows = [
     </div>
 
     <div
+      data-reveal="rise"
+      data-reveal-delay="100"
       class="flex w-full flex-1 flex-col gap-[16px] rounded-[16px] border border-line bg-card p-[20px] lg:gap-[18px] lg:rounded-card-lg lg:p-[28px_28px_26px_28px]"
     >
       <div class="flex items-center gap-[14px]">

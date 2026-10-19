@@ -27,10 +27,13 @@ const options = [
       class="mx-auto max-w-[800px]"
     />
 
-    <div class="flex flex-col gap-[14px] lg:flex-row lg:gap-[24px]">
+    <div data-reveal-group class="flex flex-col gap-[14px] lg:flex-row lg:gap-[24px]">
       {
         options.map((option) => (
-          <article class="flex flex-1 flex-col gap-[12px] rounded-[16px] border border-line bg-card p-[20px] lg:gap-[14px] lg:rounded-card-lg lg:p-[26px_26px_28px_26px]">
+          <article
+            data-reveal="rise"
+            class="flex flex-1 flex-col gap-[12px] rounded-[16px] border border-line bg-card p-[20px] lg:gap-[14px] lg:rounded-card-lg lg:p-[26px_26px_28px_26px]"
+          >
             <div class="flex items-center justify-between gap-[10px]">
               <span class="flex h-[42px] w-[42px] items-center justify-center rounded-[12px] bg-brand-tint-soft lg:h-[46px] lg:w-[46px] lg:rounded-[13px]">
                 <Icon name={option.icon} class="h-[21px] w-[21px] text-brand-primary lg:h-[23px] lg:w-[23px]" />
@@ -47,6 +50,8 @@ const options = [
     </div>
 
     <div
+      data-reveal="up"
+      data-reveal-delay="260"
       class="flex items-start gap-[10px] rounded-card bg-info-bg p-[16px_18px] lg:mx-auto lg:w-full lg:max-w-[800px]"
     >
       <Icon name="info" class="h-[17px] w-[17px] shrink-0 text-info-fg" />

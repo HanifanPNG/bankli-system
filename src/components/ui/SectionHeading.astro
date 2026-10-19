@@ -30,10 +30,13 @@ const classes = [
 ].filter(Boolean).join(" ");
 ---
 
-<div class={classes}>
+<div class={classes} data-reveal-group>
   {
     eyebrow && (
-      <p class="text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-[12px] lg:tracking-[1.6px]">
+      <p
+        data-reveal="up"
+        class="text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-[12px] lg:tracking-[1.6px]"
+      >
         {eyebrow}
       </p>
     )
@@ -41,6 +44,7 @@ const classes = [
   {
     title && (
       <h2
+        data-reveal="up"
         class={`w-full text-[28px] leading-[1.16] font-medium tracking-[-0.6px] text-strong lg:text-[42px] ${titleClass}`}
       >
         {title}
@@ -48,6 +52,10 @@ const classes = [
     )
   }
   {
-    sub && <p class={`w-full text-[15px] leading-[1.6] text-body lg:text-[17px] ${subClass}`}>{sub}</p>
+    sub && (
+      <p data-reveal="up" class={`w-full text-[15px] leading-[1.6] text-body lg:text-[17px] ${subClass}`}>
+        {sub}
+      </p>
+    )
   }
 </div>

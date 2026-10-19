@@ -33,9 +33,17 @@ const categories = [
 
     <div class="flex flex-col gap-[16px] lg:flex-row lg:gap-[24px]">
       {
-        categories.map((category) => (
-          <article class="flex flex-1 flex-col overflow-hidden rounded-[16px] border border-line bg-card lg:rounded-card-lg">
-            <div class:list={["flex h-[176px] items-center justify-center", category.media]}>
+        categories.map((category, categoryIndex) => (
+          <article
+            data-reveal="rise"
+            data-reveal-delay={String(categoryIndex * 80)}
+            class="flex flex-1 flex-col overflow-hidden rounded-[16px] border border-line bg-card lg:rounded-card-lg"
+          >
+            <div
+              data-reveal="up"
+              data-reveal-delay={String(categoryIndex * 80 + 240)}
+              class:list={["flex h-[176px] items-center justify-center", category.media]}
+            >
               <Icon name={category.icon} class:list={["h-[66px] w-[66px]", category.iconColor]} />
             </div>
 
@@ -45,8 +53,12 @@ const categories = [
               </h3>
               <p class="text-[14px] leading-[22px] text-body lg:text-[15px] lg:leading-[23px]">{category.desc}</p>
               <ul class="flex flex-wrap gap-[8px] pt-[6px]">
-                {category.chips.map((chip) => (
-                  <li class="rounded-[99px] border border-line-soft bg-chip px-[12px] py-[6px] text-[12.5px] font-medium text-label">
+                {category.chips.map((chip, chipIndex) => (
+                  <li
+                    data-reveal="up"
+                    data-reveal-delay={String(categoryIndex * 80 + 160 + chipIndex * 40)}
+                    class="rounded-[99px] border border-line-soft bg-chip px-[12px] py-[6px] text-[12.5px] font-medium text-label"
+                  >
                     {chip}
                   </li>
                 ))}

@@ -84,6 +84,33 @@
   --radius-control: 12px; /* $radius-control */
   --radius-card: 14px; /* $radius-card */
   --radius-card-lg: 18px; /* $radius-card-lg */
+
+  /* Gerak — samakan nilainya dengan konstanta di src/scripts/motion.ts */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --duration-reveal: 500ms;
+  --stagger-reveal: 70ms;
+
+  /*
+   * Ponsel di section Tentang mengambang. Rentang geraknya di BAWAH posisi
+   * diam design (0% & 100% turun 16px, 50% kembali ke 0) supaya bagian atas
+   * ponsel tidak pernah melewati tepi atas frame — kalau naik di atas 0,
+   * kepala ponsel terpotong `overflow-hidden` frame (dilaporkan pemilik
+   * proyek). CSS murni (bukan Motion) karena geraknya tidak terikat scroll;
+   * `ease-in-out` melambatkan titik balik, 1s per siklus naik-turun.
+   */
+  --animate-phone-float: phone-float 1s ease-in-out infinite;
+
+  @keyframes phone-float {
+    0%,
+    100% {
+      transform: translateY(16px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+  }
 }
 
 @font-face {
@@ -129,5 +156,59 @@
     outline: 2px solid #ffffff;
     outline-offset: 1px;
     box-shadow: 0 0 0 4px rgb(15 23 42 / 0.6);
+  }
+
+  /*
+   * Keadaan awal animasi masuk. Aktif hanya kalau JS hidup (html.has-js),
+   * jadi tanpa JS konten langsung terlihat. Nilai "from" di sini WAJIB sama
+   * dengan keyframes di src/scripts/motion.ts.
+   */
+  .has-js [data-reveal="up"] {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .has-js [data-reveal="rise"] {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .has-js [data-reveal="scale"] {
+    opacity: 0;
+    transform: scale(0.98) translateY(24px);
+  }
+  .has-js [data-reveal="fade"] {
+    opacity: 0;
+  }
+  .has-js [data-reveal="grow"] {
+    transform: scaleX(0);
+  }
+  .has-js [data-reveal="clip"] {
+    clip-path: inset(0% 50% 0% 50%);
+  }
+  .has-js [data-reveal-word] {
+    opacity: 0;
+    clip-path: inset(100% 0% -20% 0%);
+  }
+
+  /* Garis yang "tumbuh" selalu dari kiri (rail Cara Kerja). */
+  [data-reveal="grow"] {
+    transform-origin: left center;
+  }
+
+  /*
+   * prefers-reduced-motion: gerak dihapus, fade tipis 180ms tetap jalan
+   * supaya perubahan state tidak terasa "nge-pop".
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .has-js [data-reveal="up"],
+    .has-js [data-reveal="rise"],
+    .has-js [data-reveal="scale"],
+    .has-js [data-reveal="grow"],
+    .has-js [data-reveal-word] {
+      transform: none;
+    }
+    .has-js [data-reveal="clip"],
+    .has-js [data-reveal-word] {
+      clip-path: none;
+    }
   }
 }

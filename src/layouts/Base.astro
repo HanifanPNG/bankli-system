@@ -29,8 +29,22 @@ const {
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
+		<script is:inline>
+			// Penanda "JS hidup": pre-state animasi masuk hanya disembunyikan kalau JS siap.
+			// Failsafe: kalau modul motion gagal dimuat dalam 2,5s, konten dibiarkan tampil.
+			(function () {
+				var root = document.documentElement;
+				root.classList.add("has-js");
+				window.setTimeout(function () {
+					if (!root.hasAttribute("data-motion-ready")) root.classList.remove("has-js");
+				}, 2500);
+			})();
+		</script>
 	</head>
 	<body class="h-full font-sans text-strong">
 		<slot />
+		<script>
+			import "../scripts/motion";
+		</script>
 	</body>
 </html>

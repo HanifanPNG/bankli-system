@@ -40,15 +40,17 @@ const steps = [
       class="mx-auto max-w-[800px]"
     />
 
-    <ol class="flex flex-col gap-[16px] lg:flex-row lg:gap-[20px]">
+    <ol data-reveal-group class="flex flex-col gap-[16px] lg:flex-row lg:gap-[20px]">
       {
         steps.map((step, index) => (
-          <li class="flex flex-1 flex-col gap-[13px]">
+          <li data-reveal="rise" class="flex flex-1 flex-col gap-[13px]">
             <div class="flex items-center gap-[12px]">
               <span class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full bg-brand-dark text-[15px] font-bold text-white">
                 {index + 1}
               </span>
-              {index < steps.length - 1 && <span class="hidden h-px flex-1 bg-brand-border lg:block" />}
+              {index < steps.length - 1 && (
+                <span data-reveal="grow" class="hidden h-px flex-1 bg-brand-border lg:block" />
+              )}
             </div>
             <div class="flex items-center gap-[9px]">
               <Icon name={step.icon} class="h-[18px] w-[18px] shrink-0 text-brand-primary" />

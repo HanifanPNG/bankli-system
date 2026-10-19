@@ -1,21 +1,40 @@
 ---
 import Button from "../ui/Button.astro";
+
+const headline = "Mulai kelola hasil setoran sampahmu bersama Bankli.";
 ---
 
 <section class="w-full bg-brand-text-dark px-6 py-[52px] lg:px-[120px] lg:py-[92px]">
-  <div class="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-[16px] lg:gap-[22px]">
+  <div
+    data-reveal-group
+    class="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-[16px] lg:gap-[22px]"
+  >
     <h2
+      data-reveal-mask
       class="w-full max-w-[900px] text-center text-[30px] leading-[1.13] font-medium text-white lg:text-[46px] lg:leading-[52px]"
     >
-      Mulai kelola hasil setoran sampahmu bersama Bankli.
+      {
+        headline.split(" ").map((word, index) => (
+          <>
+            {index > 0 && " "}
+            <span data-reveal-word class="inline-block">
+              {word}
+            </span>
+          </>
+        ))
+      }
     </h2>
     <p
+      data-reveal="up"
       class="w-full max-w-[640px] text-center text-[15.5px] leading-[1.6] text-on-dark-soft lg:text-[18px] lg:leading-[28px]"
     >
       Daftar sebagai mahasiswa, setor sampah di stand Bankli, lalu pantau saldo dan pencairanmu di
       aplikasi.
     </p>
-    <div class="flex w-full flex-col gap-[10px] pt-[10px] lg:w-auto lg:flex-row lg:gap-[12px]">
+    <div
+      data-reveal="up"
+      class="flex w-full flex-col gap-[10px] pt-[10px] lg:w-auto lg:flex-row lg:gap-[12px]"
+    >
       <Button
         label="Daftar sebagai mahasiswa"
         href="#"
