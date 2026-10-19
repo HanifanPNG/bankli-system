@@ -1,0 +1,53 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  sub?: string;
+  align?: "center" | "left";
+  titleClass?: string;
+  subClass?: string;
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  sub,
+  align = "center",
+  titleClass = "",
+  subClass = "",
+  class: className = "",
+} = Astro.props;
+
+if (!title && !sub && !eyebrow) {
+  throw new Error("SectionHeading butuh minimal salah satu dari eyebrow/title/sub");
+}
+
+const classes = [
+  "flex flex-col gap-[12px] lg:gap-[16px]",
+  align === "center" ? "items-center text-center" : "items-start text-left",
+  className,
+].filter(Boolean).join(" ");
+---
+
+<div class={classes}>
+  {
+    eyebrow && (
+      <p class="text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-[12px] lg:tracking-[1.6px]">
+        {eyebrow}
+      </p>
+    )
+  }
+  {
+    title && (
+      <h2
+        class={`w-full text-[28px] leading-[1.16] font-medium tracking-[-0.6px] text-strong lg:text-[42px] ${titleClass}`}
+      >
+        {title}
+      </h2>
+    )
+  }
+  {
+    sub && <p class={`w-full text-[15px] leading-[1.6] text-body lg:text-[17px] ${subClass}`}>{sub}</p>
+  }
+</div>

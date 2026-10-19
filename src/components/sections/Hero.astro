@@ -1,0 +1,56 @@
+---
+import Icon from "../Icon.astro";
+import Button from "../ui/Button.astro";
+import DashboardMockup from "../mockup/DashboardMockup.astro";
+import PhoneMockup from "../mockup/PhoneMockup.astro";
+
+const headline = "Ubah sampah jadi nilai yang lebih bermakna.";
+const sub =
+  "Bankli membantu mahasiswa menyetorkan sampah di stand, mencatat nilai setoran, memantau saldo, dan mengajukan pencairan — dalam satu sistem.";
+---
+
+<section aria-labelledby="hero-headline">
+  <!-- Mobile -->
+  <div class="lg:hidden">
+    <div class="flex flex-col items-center gap-[16px] px-6 pt-[40px] pb-[8px] text-center">
+      <span class="inline-flex items-center gap-[6px] rounded-full bg-brand-tint-soft px-[12px] py-[6px]">
+        <Icon name="recycle" class="h-[13px] w-[13px] text-brand-dark" />
+        <span class="text-[10.5px] font-semibold tracking-[1.2px] text-brand-dark uppercase">Bank Sampah Mahasiswa</span>
+      </span>
+      <h1 id="hero-headline" class="text-[37px] leading-[1.1] font-medium text-strong">{headline}</h1>
+      <p class="text-[15.5px] leading-[1.55] text-body">{sub}</p>
+      <div class="flex w-full flex-col gap-[10px] pt-[10px]">
+        <Button label="Daftar sebagai mahasiswa" href="#" variant="brand" size="mobile-lg" sweep full />
+        <Button label="Lihat cara kerja" href="#cara-kerja" variant="outline" size="mobile-lg" icon="play-circle" sweep full />
+      </div>
+      <p class="text-[12.5px] text-muted">Setoran ditimbang &amp; dikonfirmasi pengurus di stand Bankli.</p>
+    </div>
+    <div class="flex justify-center bg-brand-tint px-[26px] py-[26px]">
+      <PhoneMockup />
+    </div>
+  </div>
+
+  <!-- Desktop -->
+  <div class="relative mx-auto hidden w-full max-w-[1440px] pb-[60px] lg:block">
+    <div class="absolute inset-x-[13px] top-[33px] h-[616px] rounded-[70px] bg-brand-dark"></div>
+    <div class="relative flex flex-col items-center px-6">
+      <h1
+        class="mt-[95px] w-full max-w-[1010px] text-center font-serif text-[64px] leading-[1.05] font-medium tracking-[-1px] text-hero-headline"
+      >
+        {headline}
+      </h1>
+      <p class="mt-[20px] w-full max-w-[670px] text-center text-[19px] leading-[1.5] text-hero-sub">{sub}</p>
+      <div class="mt-[50px] flex items-center gap-[12px] pt-[8px]">
+        <Button label="Daftar sebagai mahasiswa" href="#" variant="brand-deep" size="lg" sweep />
+        <Button label="Lihat cara kerja" href="#cara-kerja" variant="outline" size="lg" icon="play-circle" sweep />
+      </div>
+      <div class="mt-[58px] w-full max-w-[1358px]">
+        <div
+          class="max-h-[964px] overflow-hidden rounded-[31px] shadow-[0_50px_90px_-40px_rgba(15,81,50,0.45),0_18px_40px_-24px_rgba(15,23,42,0.25)]"
+        >
+          <DashboardMockup />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

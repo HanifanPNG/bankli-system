@@ -1,0 +1,97 @@
+---
+import Icon from "../Icon.astro";
+import Button from "../ui/Button.astro";
+
+const notes = [
+  {
+    title: "Datang saat stand buka",
+    desc: "Setoran dan pencairan tunai tidak dilayani di luar jam operasional.",
+    icon: "timer",
+  },
+  {
+    title: "Jadwal bisa berubah",
+    desc: "Hari dan jam buka diumumkan pengurus melalui aplikasi Bankli.",
+    icon: "megaphone",
+  },
+];
+
+const rows = [
+  { title: "Setoran sampah", desc: "Mengikuti hari & jam operasional stand", icon: "package" },
+  { title: "Pencairan tunai", desc: "Dilayani pengurus saat jam operasional", icon: "banknote" },
+  { title: "Transfer DANA", desc: "Diajukan di aplikasi, diproses admin sesuai prosedur", icon: "send" },
+];
+---
+
+<section id="jadwal" class="w-full bg-page px-6 py-[56px] lg:px-[120px] lg:py-[96px]">
+  <div
+    class="mx-auto flex w-full max-w-[1200px] flex-col gap-[26px] lg:flex-row lg:items-center lg:gap-[56px]"
+  >
+    <div class="flex w-full flex-col gap-[16px] lg:w-[520px] lg:shrink-0">
+      <p class="text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-[12px] lg:tracking-[1.6px]">
+        Jadwal Layanan
+      </p>
+      <h2 class="text-[28px] leading-[1.16] font-medium tracking-[-0.6px] text-strong lg:text-[40px] lg:leading-[47px]">
+        Pelayanan mengikuti jam operasional stand.
+      </h2>
+      <p class="text-[15px] leading-[1.6] text-body lg:text-[16.5px] lg:leading-[26px]">
+        Setoran yang memerlukan pengurus — termasuk pencairan tunai — hanya dilayani pada hari dan jam buka
+        stand Bankli.
+      </p>
+
+      <div class="flex flex-col gap-[12px] pt-[8px]">
+        {
+          notes.map((note) => (
+            <div class="flex items-start gap-[12px] py-[2px]">
+              <span class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] border border-line bg-card">
+                <Icon name={note.icon} class="h-[17px] w-[17px] text-brand-primary" />
+              </span>
+              <span class="flex flex-col gap-[3px]">
+                <span class="text-[15px] font-semibold text-strong">{note.title}</span>
+                <span class="text-[14px] leading-[21px] text-body">{note.desc}</span>
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="flex w-full flex-1 flex-col gap-[16px] rounded-[16px] border border-line bg-card p-[20px] lg:gap-[18px] lg:rounded-card-lg lg:p-[28px_28px_26px_28px]"
+    >
+      <div class="flex items-center gap-[14px]">
+        <span class="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-[13px] bg-brand-tint-soft">
+          <Icon name="calendar-days" class="h-[23px] w-[23px] text-brand-primary" />
+        </span>
+        <span class="flex flex-col gap-[3px]">
+          <span class="text-[18px] font-semibold text-strong">Jadwal operasional stand</span>
+          <span class="text-[13.5px] leading-[20px] text-body">
+            Hari dan jam buka resmi diumumkan pengurus Bankli di aplikasi.
+          </span>
+        </span>
+      </div>
+
+      <div class="h-px w-full bg-line-soft"></div>
+
+      {
+        rows.map((row) => (
+          <div class="flex items-center gap-[12px]">
+            <Icon name={row.icon} class="h-[17px] w-[17px] shrink-0 text-faint" />
+            <span class="flex flex-col gap-[2px]">
+              <span class="text-[14.5px] font-semibold text-heading">{row.title}</span>
+              <span class="text-[13px] leading-[19px] text-muted">{row.desc}</span>
+            </span>
+          </div>
+        ))
+      }
+
+      <Button
+        label="Lihat cara kerja"
+        href="#cara-kerja"
+        variant="outline"
+        size="card"
+        icon="calendar-clock"
+        full
+      />
+    </div>
+  </div>
+</section>

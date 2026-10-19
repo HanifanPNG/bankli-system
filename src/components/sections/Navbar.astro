@@ -1,0 +1,91 @@
+---
+import Icon from "../Icon.astro";
+import Button from "../ui/Button.astro";
+
+const links = [
+  { label: "Tentang", href: "#tentang" },
+  { label: "Cara Kerja", href: "#cara-kerja" },
+  { label: "Kategori", href: "#kategori" },
+  { label: "Jadwal Layanan", href: "#jadwal" },
+  { label: "Pencairan", href: "#pencairan" },
+];
+---
+
+<header class="w-full border-b border-line">
+  <div class="mx-auto flex h-[66px] w-full max-w-[1200px] items-center justify-between px-6 lg:h-[78px] lg:px-[120px]">
+    <a href="/" class="flex items-center gap-[8px] lg:gap-[10px]" aria-label="Bankli — beranda">
+      <span class="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-brand-primary lg:h-[38px] lg:w-[38px]">
+        <Icon name="recycle" class="h-[17px] w-[17px] text-card lg:h-[20px] lg:w-[20px]" />
+      </span>
+      <span class="text-[18px] font-bold text-strong lg:text-[21px]">Bankli</span>
+    </a>
+
+    <nav class="hidden items-center gap-[30px] lg:flex" aria-label="Navigasi utama">
+      {
+        links.map((link) => (
+          <a href={link.href} class="text-[14.5px] font-medium text-body transition-colors hover:text-brand-dark">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-[6px] lg:gap-[8px]">
+      <div class="hidden items-center gap-[8px] lg:flex">
+        <Button label="Masuk" href="#" variant="tint" size="tint" />
+        <Button label="Daftar" href="#" variant="brand" size="md" />
+      </div>
+      <div class="flex items-center gap-[6px] lg:hidden">
+        <Button label="Daftar" href="#" variant="brand" size="nav-mobile" />
+        <button
+          type="button"
+          id="nav-toggle"
+          class="flex h-[36px] w-[36px] items-center justify-center rounded-[10px] border border-line bg-chip"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          aria-label="Buka menu navigasi"
+        >
+          <Icon name="menu" class="h-[18px] w-[18px] text-body" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobile-nav" hidden class="border-t border-line bg-card px-6 pb-[18px] lg:hidden">
+    <nav class="flex flex-col" aria-label="Navigasi mobile">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="border-b border-line-soft py-[14px] text-[14.5px] font-medium text-body"
+            data-mobile-nav-link
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <Button label="Masuk" href="#" variant="outline" size="sm" class="mt-[16px]" full />
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const panel = document.getElementById("mobile-nav");
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Tutup menu navigasi" : "Buka menu navigasi");
+      panel.toggleAttribute("hidden", !open);
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    panel.querySelectorAll("[data-mobile-nav-link]").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+  }
+</script>

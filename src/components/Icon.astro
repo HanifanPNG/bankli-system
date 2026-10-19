@@ -1,0 +1,25 @@
+---
+import { icons } from "./icons";
+
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className = "" } = Astro.props;
+const icon = icons[name];
+
+if (!icon) {
+  throw new Error(`Ikon "${name}" belum tersedia di src/components/icons.ts`);
+}
+---
+
+<svg
+  viewBox={icon.vb}
+  xmlns="http://www.w3.org/2000/svg"
+  preserveAspectRatio="xMidYMid meet"
+  class={className}
+  aria-hidden="true"
+  focusable="false"
+  set:html={icon.inner}
+/>

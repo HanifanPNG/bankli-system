@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — diambil 1:1 dari variabel di bankli.pen.
+ * Nama token di .pen ditulis di komentar agar mudah dilacak.
+ */
+@theme {
+  /* Brand */
+  --color-brand-primary: #00a15d; /* $brand-primary */
+  --color-brand-dark: #0b7a46; /* $brand-dark */
+  --color-brand-kertas: #ff9b52; /* $brand-kertas */
+  --color-brand-tint: #f1faf5; /* $brand-tint */
+  --color-brand-tint-soft: #e9f7ef; /* $brand-tint-soft */
+  --color-brand-border: #d6efe0; /* $brand-border */
+  --color-brand-divider: #c7e7d4; /* $brand-divider */
+  --color-brand-text-dark: #0f5132; /* $brand-text-dark */
+  --color-brand-kertas-tint: #fff3e8; /* tint kertas (dipakai di kartu kategori) */
+
+  /* Teks */
+  --color-strong: #000000; /* $text-strong */
+  --color-heading: #0f172a; /* $text-primary */
+  --color-body: #5e6675; /* $text-secondary */
+  --color-muted: #6b7280; /* $text-muted — digelapkan dari #8b909a agar lolos kontras 4.5:1 */
+  --color-faint: #6b7280; /* $text-faint — digelapkan dari #98a0b0 agar lolos kontras 3:1 (ikon) & 4.5:1 (teks) */
+  --color-label: #6b7280; /* $text-label — digelapkan dari #7c8598 agar lolos kontras 4.5:1 */
+  --color-icon: #a8aeba; /* $text-icon */
+
+  /* Permukaan */
+  --color-page: #f8f8f8; /* $surface-page */
+  --color-card: #ffffff; /* $surface-card */
+  --color-chip: #f8f9fa; /* $surface-chip */
+  --color-row: #fafbfc; /* $surface-row */
+  --color-back: #f1f5f9; /* $surface-back */
+  --color-neutral-100: #eeeeee; /* $neutral-100 */
+  --color-neutral-fg: #6b7280; /* $neutral-fg */
+
+  /* Garis */
+  --color-line: #e6e8ec; /* $border-divider */
+  --color-line-soft: #f1f2f5; /* $border-subtle */
+
+  /* Pola kotak-kotak transparan di latar putih (ref. readme.com) */
+  --color-grid: #ebeff3;
+  --grid-cell: 60px;
+
+  /* Status */
+  --color-info-bg: #e8f1fe; /* $info-bg */
+  --color-info-fg: #1d6fd6; /* $info-fg */
+  --color-info-text-dark: #14488c; /* $info-text-dark */
+  --color-success-bg: #e7f7ef; /* $success-bg */
+  --color-warn-bg: #fff4e5; /* $warn-bg */
+  --color-warn-fg: #b4690e; /* $warn-fg */
+  --color-warn-fg-strong: #8a5410; /* $warn-fg-strong */
+
+  /* Chart & avatar */
+  --color-chart-plastik-a: #34b36f; /* $chart-plastik-a */
+  --color-chart-plastik-b: #00904f; /* $chart-plastik-b */
+  --color-chart-kertas-a: #ffb27a; /* $chart-kertas-a */
+  --color-chart-kertas-b: #f07e2b; /* $chart-kertas-b */
+  --color-avatar-bg: #d8f0e3; /* $avatar-bg */
+  --color-avatar-fg: #006e40; /* $avatar-fg */
+  --color-avatar-blue-bg: #eef1fe; /* $avatar-blue-bg */
+  --color-avatar-blue-fg: #5e72e4; /* $avatar-blue-fg */
+  --color-avatar-purple-bg: #f3ebff; /* $avatar-purple-bg */
+  --color-avatar-purple-fg: #7c4dff; /* $avatar-purple-fg */
+
+  /* Sidebar (mockup dashboard) */
+  --color-nav-label: #737b8b; /* $nav-label */
+  --color-nav-icon: #8a93a4; /* $nav-icon */
+  --color-sidebar-text: #393939; /* $sidebar-text */
+  --color-sidebar-text-sub: #9fa4a6; /* $sidebar-text-sub */
+  --color-sidebar-chevron: #b9b9c3; /* $sidebar-chevron */
+  --color-search-text: #6e6e6e; /* $search-text */
+
+  /* Teks di atas panel hijau */
+  --color-hero-headline: #eef1fe;
+  --color-hero-sub: #f3ebff;
+  --color-on-dark-soft: #cdebd9;
+
+  /* Tipografi */
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-serif: "STKBureauSerif", Georgia, serif;
+
+  /* Radius */
+  --radius-control: 12px; /* $radius-control */
+  --radius-card: 14px; /* $radius-card */
+  --radius-card-lg: 18px; /* $radius-card-lg */
+}
+
+@font-face {
+  font-family: "STKBureauSerif";
+  src: url("/fonts/stkbureau-serif.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400 500;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  /*
+   * Pola kotak-kotak transparan (garis 1px, sel 60px) seperti latar di
+   * referensi readme.com. Dipasang di <html> supaya polanya nyambung
+   * dari atas sampai bawah dokumen; section berlatar putih dibuat
+   * transparan agar polanya terlihat.
+   */
+  html {
+    background-color: var(--color-card);
+    background-image:
+      linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
+    background-size: var(--grid-cell) var(--grid-cell);
+  }
+
+  body {
+    background-color: transparent;
+    color: var(--color-strong);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /*
+   * Fokus keyboard dua lapis (ring putih + halo gelap) supaya tetap terlihat
+   * di atas permukaan terang, hijau brand, maupun panel hijau tua.
+   */
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 1px;
+    box-shadow: 0 0 0 4px rgb(15 23 42 / 0.6);
+  }
+}

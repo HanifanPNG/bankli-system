@@ -1,16 +1,28 @@
 ---
+import Base from "../layouts/Base.astro";
+import TopBar from "../components/sections/TopBar.astro";
+import Navbar from "../components/sections/Navbar.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import Steps from "../components/sections/Steps.astro";
+import Categories from "../components/sections/Categories.astro";
+import Schedule from "../components/sections/Schedule.astro";
+import Payout from "../components/sections/Payout.astro";
+import CtaBand from "../components/sections/CtaBand.astro";
+import SiteFooter from "../components/sections/SiteFooter.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base>
+  <TopBar />
+  <Navbar />
+  <main>
+    <Hero />
+    <About />
+    <Steps />
+    <Categories />
+    <Schedule />
+    <Payout />
+    <CtaBand />
+  </main>
+  <SiteFooter />
+</Base>

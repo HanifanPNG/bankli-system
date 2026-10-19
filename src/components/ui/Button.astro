@@ -1,0 +1,140 @@
+---
+import Icon from "../Icon.astro";
+
+type Variant =
+  | "brand"
+  | "brand-deep"
+  | "outline"
+  | "outline-brand"
+  | "tint"
+  | "on-dark"
+  | "ghost-dark";
+
+type Size = "sm" | "md" | "lg" | "mobile-lg" | "tint" | "ghost" | "nav-mobile" | "card" | "cta";
+
+interface Props {
+  label: string;
+  href?: string;
+  variant?: Variant;
+  size?: Size;
+  icon?: string;
+  iconPos?: "start" | "end";
+  iconClass?: string;
+  full?: boolean;
+  /** Sapuan warna dari kiri ke kanan saat hover. */
+  sweep?: boolean;
+  class?: string;
+}
+
+const {
+  label,
+  href,
+  variant = "brand",
+  size = "sm",
+  icon,
+  iconPos = "start",
+  iconClass = "",
+  full = false,
+  sweep = false,
+  class: className = "",
+} = Astro.props;
+
+const sizes: Record<Size, string> = {
+  sm: "px-[16px] py-[11px] text-[13.5px] rounded-control",
+  md: "px-[20px] py-[11px] text-[13.5px] rounded-control",
+  lg: "px-[26px] py-[15px] text-[15px] rounded-control",
+  "mobile-lg": "px-[20px] py-[14px] text-[15px] rounded-control",
+  tint: "px-[12px] py-[7px] text-[12px] rounded-[9px]",
+  ghost: "px-[24px] py-[15px] text-[15px] rounded-control",
+  "nav-mobile": "px-[16px] py-[9px] text-[13.5px] rounded-[10px]",
+  card: "px-[18px] py-[12px] text-[14px] rounded-control",
+  cta: "px-[26px] py-[15px] text-[15px] rounded-control",
+};
+
+const variants: Record<Variant, string> = {
+  brand: "bg-brand-dark text-white hover:bg-brand-text-dark",
+  "brand-deep": "bg-brand-text-dark text-white hover:bg-avatar-fg",
+  outline: "bg-card text-body border border-neutral-100 hover:border-brand-border hover:text-brand-dark",
+  "outline-brand": "bg-card text-brand-dark border border-brand-dark hover:bg-brand-tint",
+  tint: "bg-brand-tint text-brand-dark hover:bg-brand-tint-soft",
+  "on-dark": "bg-card text-brand-text-dark hover:bg-brand-tint",
+  "ghost-dark": "text-white border border-white/25 hover:bg-white/10",
+};
+
+const iconSizes: Record<Size, string> = {
+  sm: "h-[16px] w-[16px]",
+  md: "h-[16px] w-[16px]",
+  lg: "h-[17px] w-[17px]",
+  "mobile-lg": "h-[17px] w-[17px]",
+  tint: "h-[14px] w-[14px]",
+  ghost: "h-[17px] w-[17px]",
+  "nav-mobile": "h-[16px] w-[16px]",
+  card: "h-[16px] w-[16px]",
+  cta: "h-[17px] w-[17px]",
+};
+
+/**
+ * Sapuan hover: warna lapisan + warna teks saat lapisan menutup tombol.
+ * Hanya dipakai pada varian yang sudah punya pasangan warna kontras.
+ */
+const sweeps: Partial<Record<Variant, { layer: string; content: string }>> = {
+  "on-dark": {
+    layer: "bg-brand-dark",
+    content: "group-hover:text-white group-focus-visible:text-white",
+  },
+  "ghost-dark": {
+    layer: "bg-white",
+    content: "group-hover:text-brand-text-dark group-focus-visible:text-brand-text-dark",
+  },
+  brand: {
+    layer: "bg-brand-text-dark",
+    content: "group-hover:text-white group-focus-visible:text-white",
+  },
+  // Tombol hijau tua di panel hero: sapuan putih + teks hijau tua.
+  "brand-deep": {
+    layer: "bg-white",
+    content: "group-hover:text-brand-text-dark group-focus-visible:text-brand-text-dark",
+  },
+  outline: {
+    layer: "bg-brand-tint-soft",
+    content: "group-hover:text-brand-dark group-focus-visible:text-brand-dark",
+  },
+};
+
+const sweepStyle = sweep ? sweeps[variant] ?? null : null;
+
+const classes = [
+  "relative inline-flex shrink-0 items-center justify-center gap-[8px] font-semibold whitespace-nowrap transition-colors",
+  sweepStyle ? "group overflow-hidden" : "",
+  sizes[size],
+  variants[variant],
+  full ? "w-full" : "",
+  className,
+].filter(Boolean).join(" ");
+
+const Tag = href ? "a" : "button";
+---
+
+<Tag class={classes} href={href}>
+  {
+    sweepStyle && (
+      <span
+        aria-hidden="true"
+        class:list={[
+          "pointer-events-none absolute inset-0 -translate-x-full motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out group-hover:translate-x-0 group-focus-visible:translate-x-0",
+          sweepStyle.layer,
+        ]}
+      />
+    )
+  }
+  <span
+    class:list={[
+      "relative z-10 inline-flex items-center gap-[8px] transition-colors",
+      sweepStyle?.content,
+    ]}
+  >
+    {icon && iconPos === "start" && <Icon name={icon} class={`${iconSizes[size]} shrink-0 ${iconClass}`} />}
+    <span>{label}</span>
+    {icon && iconPos === "end" && <Icon name={icon} class={`${iconSizes[size]} shrink-0 ${iconClass}`} />}
+  </span>
+</Tag>

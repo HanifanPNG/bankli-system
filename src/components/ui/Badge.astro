@@ -1,0 +1,32 @@
+---
+type Tone = "success" | "warn" | "info";
+
+interface Props {
+  label: string;
+  tone?: Tone;
+  size?: "md" | "sm";
+  class?: string;
+}
+
+const { label, tone = "success", size = "md", class: className = "" } = Astro.props;
+
+const tones: Record<Tone, string> = {
+  success: "bg-success-bg text-brand-dark",
+  warn: "bg-warn-bg text-warn-fg",
+  info: "bg-info-bg text-info-fg",
+};
+
+const sizes = {
+  md: "px-[10px] py-[4px] text-[11.5px]",
+  sm: "px-[8px] py-[2px] text-[9.5px]",
+};
+
+const classes = [
+  "inline-flex shrink-0 items-center justify-center rounded-[20px] font-semibold whitespace-nowrap",
+  sizes[size],
+  tones[tone],
+  className,
+].filter(Boolean).join(" ");
+---
+
+<span class={classes}>{label}</span>

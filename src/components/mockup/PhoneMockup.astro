@@ -1,0 +1,48 @@
+---
+import Icon from "../Icon.astro";
+import Badge from "../ui/Badge.astro";
+
+const rows = [
+  { kode: "ST-0148", kat: "Plastik & Botol", nilai: "Rp 9.600", badge: "Terkonfirmasi", tone: "success" as const },
+  { kode: "ST-0147", kat: "Kardus & Kertas", nilai: "Rp 5.270", badge: "Menunggu", tone: "warn" as const },
+];
+---
+
+<div class="w-[300px] shrink-0 rounded-[24px] border border-line bg-card" role="img" aria-label="Tampilan aplikasi Bankli di ponsel">
+  <div class="flex items-center justify-between border-b border-line-soft px-[16px] py-[14px]">
+    <span class="flex items-center gap-[7px]">
+      <span class="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-brand-primary">
+        <Icon name="recycle" class="h-[13px] w-[13px] text-card" />
+      </span>
+      <span class="text-[14px] font-bold text-strong">Bankli</span>
+    </span>
+    <span class="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-avatar-bg">
+      <span class="text-[12px] font-semibold text-avatar-fg">A</span>
+    </span>
+  </div>
+
+  <div class="flex flex-col gap-[12px] p-[14px]">
+    <div class="flex flex-col gap-[4px] rounded-card bg-brand-primary p-[16px]">
+      <span class="text-[11.5px] font-medium text-on-dark-soft">Saldo tersedia</span>
+      <span class="text-[26px] font-bold text-card">Rp 128.500</span>
+      <span class="text-[11px] text-on-dark-soft">Setoran terkonfirmasi</span>
+    </div>
+
+    <span class="text-[12.5px] font-semibold text-strong">Setoran terbaru</span>
+
+    {
+      rows.map((row) => (
+        <div class="flex items-center justify-between rounded-[10px] bg-row px-[12px] py-[10px]">
+          <span class="flex flex-col gap-[2px]">
+            <span class="text-[11.5px] font-semibold text-heading">{row.kode}</span>
+            <span class="text-[10.5px] text-muted">{row.kat}</span>
+          </span>
+          <span class="flex flex-col items-end gap-[3px]">
+            <span class="text-[12px] font-bold text-strong">{row.nilai}</span>
+            <Badge label={row.badge} tone={row.tone} size="sm" />
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</div>

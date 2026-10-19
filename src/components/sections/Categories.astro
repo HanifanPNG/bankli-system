@@ -1,0 +1,60 @@
+---
+import Icon from "../Icon.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const categories = [
+  {
+    name: "Plastik, Botol & Tutup Botol",
+    desc: "Botol air mineral, gelas plastik, tutup botol, dan kemasan plastik bersih yang sudah dipilah.",
+    icon: "milk",
+    media: "bg-brand-tint-soft",
+    iconColor: "text-chart-plastik-b",
+    chips: ["Botol plastik", "Gelas plastik", "Tutup botol", "Kemasan plastik"],
+  },
+  {
+    name: "Kardus & Kertas",
+    desc: "Kardus bekas, kertas HVS, buku, dan kertas campuran yang masih kering dan bersih.",
+    icon: "package",
+    media: "bg-brand-kertas-tint",
+    iconColor: "text-chart-kertas-b",
+    chips: ["Kardus", "Kertas HVS", "Buku", "Kertas campuran"],
+  },
+];
+---
+
+<section id="kategori" class="w-full px-6 py-[56px] lg:px-[120px] lg:py-[96px]">
+  <div class="mx-auto flex w-full max-w-[1200px] flex-col gap-[26px] lg:gap-[46px]">
+    <SectionHeading
+      eyebrow="Kategori Sampah"
+      title="Dua kategori, satu alur pencatatan."
+      sub="Bankli menerima dua kelompok sampah. Pengurus memeriksa dan menimbang masing-masing kategori saat setoran di stand."
+      class="mx-auto max-w-[780px]"
+    />
+
+    <div class="flex flex-col gap-[16px] lg:flex-row lg:gap-[24px]">
+      {
+        categories.map((category) => (
+          <article class="flex flex-1 flex-col overflow-hidden rounded-[16px] border border-line bg-card lg:rounded-card-lg">
+            <div class:list={["flex h-[176px] items-center justify-center", category.media]}>
+              <Icon name={category.icon} class:list={["h-[66px] w-[66px]", category.iconColor]} />
+            </div>
+
+            <div class="flex flex-col gap-[12px] p-[24px] lg:p-[24px_26px_26px_26px]">
+              <h3 class="text-[18px] leading-[26px] font-semibold text-strong lg:text-[22px] lg:leading-[28px]">
+                {category.name}
+              </h3>
+              <p class="text-[14px] leading-[22px] text-body lg:text-[15px] lg:leading-[23px]">{category.desc}</p>
+              <ul class="flex flex-wrap gap-[8px] pt-[6px]">
+                {category.chips.map((chip) => (
+                  <li class="rounded-[99px] border border-line-soft bg-chip px-[12px] py-[6px] text-[12.5px] font-medium text-label">
+                    {chip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

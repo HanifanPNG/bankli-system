@@ -1,0 +1,445 @@
+---
+import Icon from "../Icon.astro";
+import Badge from "../ui/Badge.astro";
+
+type Tone = "success" | "warn" | "info";
+
+const nav: { label: string; icon: string; active?: boolean; badge?: string }[] = [
+  { label: "Dashboard", icon: "layout-grid", active: true },
+  { label: "Data Mahasiswa", icon: "user-check" },
+  { label: "Harga Sampah", icon: "tags" },
+  { label: "Setoran Sampah", icon: "package" },
+  { label: "Pencairan Saldo", icon: "wallet", badge: "3" },
+  { label: "Laporan", icon: "file-text" },
+  { label: "Jadwal Layanan", icon: "calendar" },
+];
+
+const stats: {
+  label: string;
+  value: string;
+  unit?: string;
+  sub: string;
+  icon: string;
+  box: string;
+  iconColor: string;
+  subColor: string;
+}[] = [
+  {
+    label: "Mahasiswa Terdaftar",
+    value: "128",
+    unit: "orang",
+    sub: "+6 mahasiswa baru bulan ini",
+    icon: "user-check",
+    box: "bg-brand-tint-soft",
+    iconColor: "text-brand-primary",
+    subColor: "text-brand-dark",
+  },
+  {
+    label: "Total Berat Setoran",
+    value: "386,5",
+    unit: "kg",
+    sub: "dari 214 setoran · Okt 2026",
+    icon: "package",
+    box: "bg-avatar-blue-bg",
+    iconColor: "text-avatar-blue-fg",
+    subColor: "text-label",
+  },
+  {
+    label: "Total Nilai Setoran",
+    value: "Rp1.012.600",
+    sub: "+12,4% dibanding bulan lalu",
+    icon: "trending-up",
+    box: "bg-brand-kertas-tint",
+    iconColor: "text-brand-kertas",
+    subColor: "text-brand-dark",
+  },
+  {
+    label: "Pencairan Menunggu",
+    value: "3",
+    unit: "permintaan",
+    sub: "Rp275.000 menunggu peninjauan",
+    icon: "wallet",
+    box: "bg-warn-bg",
+    iconColor: "text-warn-fg",
+    subColor: "text-warn-fg",
+  },
+];
+
+const actions: { title: string; desc: string; link: string; icon: string; box: string; iconColor: string }[] = [
+  {
+    title: "3 setoran menunggu harga",
+    desc: "Harga kategori belum ditetapkan untuk periode ini.",
+    link: "Tetapkan Harga",
+    icon: "tags",
+    box: "bg-warn-bg",
+    iconColor: "text-warn-fg",
+  },
+  {
+    title: "2 setoran menunggu konfirmasi",
+    desc: "Harga lengkap, siap dikonfirmasi ke saldo mahasiswa.",
+    link: "Konfirmasi",
+    icon: "clock",
+    box: "bg-info-bg",
+    iconColor: "text-info-fg",
+  },
+  {
+    title: "3 pencairan menunggu peninjauan",
+    desc: "Total Rp275.000 sedang menahan saldo mahasiswa.",
+    link: "Tinjau",
+    icon: "wallet",
+    box: "bg-warn-bg",
+    iconColor: "text-warn-fg",
+  },
+];
+
+const chart: { label: string; plastik: number; kertas: number }[] = [
+  { label: "10 Okt", plastik: 130, kertas: 64 },
+  { label: "11 Okt", plastik: 169, kertas: 81 },
+  { label: "12 Okt", plastik: 94, kertas: 48 },
+  { label: "13 Okt", plastik: 153, kertas: 74 },
+  { label: "14 Okt", plastik: 193, kertas: 97 },
+  { label: "15 Okt", plastik: 65, kertas: 31 },
+  { label: "16 Okt", plastik: 157, kertas: 78 },
+];
+
+const setoran: {
+  kode: string;
+  nama: string;
+  kat: string;
+  berat: string;
+  nilai: string;
+  badge: string;
+  tone: Tone;
+}[] = [
+  { kode: "ST-2026-0148", nama: "Nadia Puspita", kat: "Plastik + Kertas", berat: "3,25 kg", nilai: "Rp8.750", badge: "Menunggu Konfirmasi", tone: "info" },
+  { kode: "ST-2026-0147", nama: "Rizky Ananda", kat: "Plastik", berat: "1,80 kg", nilai: "Rp5.400", badge: "Terkonfirmasi", tone: "success" },
+  { kode: "ST-2026-0146", nama: "Salsabila Putri", kat: "Kertas & Kardus", berat: "4,60 kg", nilai: "Rp9.200", badge: "Terkonfirmasi", tone: "success" },
+  { kode: "ST-2026-0145", nama: "Bagas Nugroho", kat: "Plastik", berat: "2,10 kg", nilai: "Rp6.300", badge: "Menunggu Harga", tone: "warn" },
+  { kode: "ST-2026-0144", nama: "Tiara Melati", kat: "Plastik", berat: "5,40 kg", nilai: "Rp16.200", badge: "Terkonfirmasi", tone: "success" },
+];
+
+const pencairan: {
+  initials: string;
+  nama: string;
+  kode: string;
+  amount: string;
+  badge: string;
+  tone: Tone;
+  avatar: string;
+}[] = [
+  { initials: "NP", nama: "Nadia Puspita", kode: "PC-2026-0052", amount: "Rp150.000", badge: "Menunggu Review", tone: "warn", avatar: "bg-brand-tint-soft text-brand-primary" },
+  { initials: "RA", nama: "Rizky Ananda", kode: "PC-2026-0051", amount: "Rp75.000", badge: "Menunggu Review", tone: "warn", avatar: "bg-avatar-blue-bg text-avatar-blue-fg" },
+  { initials: "SP", nama: "Salsabila Putri", kode: "PC-2026-0050", amount: "Rp50.000", badge: "Menunggu Review", tone: "warn", avatar: "bg-warn-bg text-warn-fg" },
+  { initials: "BN", nama: "Bagas Nugroho", kode: "PC-2026-0049", amount: "Rp120.000", badge: "Disetujui", tone: "info", avatar: "bg-avatar-purple-bg text-avatar-purple-fg" },
+];
+
+const periode = ["Hari Ini", "7 Hari", "Bulan Ini", "Kustom"];
+const yAxis = [30, 20, 10, 0];
+---
+
+<div class="flex w-full overflow-hidden rounded-[31px] bg-page" role="img" aria-label="Tampilan dashboard admin Bankli">
+  <!-- Sidebar -->
+  <aside class="flex w-[251px] shrink-0 flex-col bg-card">
+    <div class="flex h-[105px] items-center gap-[12px] border-b border-neutral-100 px-[26px]">
+      <span class="flex h-[48px] w-[48px] items-center justify-center rounded-full bg-brand-primary">
+        <Icon name="recycle" class="h-[24px] w-[24px] text-card" />
+      </span>
+      <span class="flex flex-col gap-[1px]">
+        <span class="text-[20px] font-bold text-strong">Bankli</span>
+        <span class="text-[11px] text-sidebar-text-sub">Bank Sampah Mahasiswa</span>
+      </span>
+    </div>
+    <nav class="flex flex-col gap-[2px] py-[18px]" aria-label="Navigasi sidebar">
+      {
+        nav.map((item) => (
+          <div
+            class:list={[
+              "flex w-full items-center gap-[12px] rounded-control px-[14px] py-[11px]",
+              item.active ? "bg-brand-tint" : "",
+            ]}
+          >
+            <Icon
+              name={item.icon}
+              class:list={["h-[20px] w-[20px] shrink-0", item.active ? "text-brand-primary" : "text-nav-icon"]}
+            />
+            <span
+              class:list={[
+                "text-[15px]",
+                item.active ? "font-semibold text-brand-primary" : "font-medium text-nav-label",
+              ]}
+            >
+              {item.label}
+            </span>
+            {item.badge && <span class="flex-1" />}
+            {item.badge && (
+              <span class="rounded-[20px] bg-warn-bg px-[8px] py-[2px] text-[11px] font-semibold text-warn-fg">
+                {item.badge}
+              </span>
+            )}
+          </div>
+        ))
+      }
+    </nav>
+    <div class="flex-1" />
+  </aside>
+
+  <!-- Main -->
+  <div class="flex min-w-0 flex-1 flex-col">
+    <header class="flex h-[105px] shrink-0 items-center justify-between border-b border-neutral-100 bg-card px-[30px]">
+      <div class="flex flex-col gap-[3px]">
+        <span class="text-[17px] font-bold text-strong">Dashboard</span>
+        <span class="text-[13px] text-muted">Ringkasan operasional bank sampah mahasiswa</span>
+      </div>
+      <div class="flex items-center gap-[18px]">
+        <div class="flex h-[50px] w-[227px] items-center gap-[10px] rounded-[44px] bg-neutral-100 px-[20px]">
+          <Icon name="search" class="h-[18px] w-[18px] shrink-0 text-search-text" />
+          <span class="text-[8.5px] text-search-text">Cari mahasiswa, kode setoran…</span>
+        </div>
+        <div class="flex w-[190px] items-center gap-[12px]">
+          <span class="flex h-[30px] w-[32px] items-center justify-center rounded-[21px] bg-avatar-bg">
+            <span class="text-[14px] font-semibold text-avatar-fg">AB</span>
+          </span>
+          <span class="flex flex-col gap-[2px]">
+            <span class="text-[12px] font-medium text-sidebar-text">Admin Bankli</span>
+            <span class="text-[9px] text-sidebar-text-sub">admin@bankli.ac.id</span>
+          </span>
+          <Icon name="chevron-down" class="h-[16px] w-[16px] shrink-0 text-sidebar-chevron" />
+        </div>
+      </div>
+    </header>
+
+    <div class="flex flex-col gap-[20px] p-[24px]">
+      <!-- Toolbar -->
+      <div class="flex items-center justify-between gap-[16px]">
+        <div class="flex items-center gap-[10px]">
+          <span class="text-[13px] font-medium text-muted">Periode</span>
+          <div class="flex items-center gap-[2px] rounded-control border border-neutral-100 bg-card p-[4px]">
+            {
+              periode.map((label, i) => (
+                <span
+                  class:list={[
+                    "rounded-[9px] px-[14px] py-[8px] text-[13px]",
+                    i === 2 ? "bg-brand-tint font-semibold text-brand-primary" : "font-medium text-nav-label",
+                  ]}
+                >
+                  {label}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+        <div class="flex items-center gap-[10px]">
+          <span class="text-[13px] font-medium text-muted">1 – 16 Oktober 2026</span>
+          <span class="inline-flex items-center gap-[8px] rounded-control border border-brand-primary bg-card px-[16px] py-[11px] text-[13.5px] font-semibold text-brand-primary">
+            <Icon name="wallet" class="h-[16px] w-[16px] shrink-0" />
+            Tinjau Pencairan
+          </span>
+          <span class="inline-flex items-center gap-[8px] rounded-control bg-brand-primary px-[18px] py-[11px] text-[13.5px] font-semibold text-white">
+            Catat Setoran
+          </span>
+        </div>
+      </div>
+
+      <!-- Jadwal hari ini -->
+      <div class="flex items-center gap-[14px] rounded-card-lg bg-card px-[20px] py-[14px]">
+        <span class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] bg-brand-tint">
+          <Icon name="calendar" class="h-[17px] w-[17px] text-brand-primary" />
+        </span>
+        <span class="flex w-[420px] flex-col gap-[2px]">
+          <span class="text-[12px] font-medium text-muted">Jadwal layanan hari ini</span>
+          <span class="text-[14px] font-bold text-heading">Rabu, 14 Oktober 2026 · 08.00–16.00</span>
+        </span>
+        <span class="flex-1" />
+        <span class="flex h-[28px] items-center gap-[8px] rounded-[20px] bg-success-bg px-[10px]">
+          <span class="h-[8px] w-[8px] rounded-full bg-brand-primary"></span>
+          <span class="text-[12.5px] font-bold text-brand-dark">Buka</span>
+        </span>
+        <span class="w-[100px] text-[12.5px] font-semibold text-brand-primary">Kelola jadwal</span>
+      </div>
+
+      <!-- Ringkasan -->
+      <div class="flex gap-[20px]">
+        {
+          stats.map((s) => (
+            <div class="flex min-w-0 flex-1 flex-col rounded-card-lg bg-card px-[20px] py-[18px]">
+              <div class="flex items-start justify-between gap-[8px]">
+                <span class="w-[170px] text-[13px] font-medium text-label">{s.label}</span>
+                <span class:list={["flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[10px]", s.box]}>
+                  <Icon name={s.icon} class:list={["h-[18px] w-[18px]", s.iconColor]} />
+                </span>
+              </div>
+              <div class="h-[6px]" />
+              <div class="flex items-end gap-[6px]">
+                <span class="text-[26px] leading-none font-bold text-heading">{s.value}</span>
+                {s.unit && <span class="text-[13px] text-muted">{s.unit}</span>}
+              </div>
+              <div class="flex-1" />
+              <span class:list={["pt-[10px] text-[12px] font-medium", s.subColor]}>{s.sub}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Perlu tindakan -->
+      <div class="flex flex-col gap-[14px] rounded-card-lg bg-card px-[20px] pt-[18px] pb-[20px]">
+        <div class="flex items-center justify-between gap-[10px]">
+          <span class="text-[16px] font-bold text-heading">Perlu Tindakan Anda</span>
+          <span class="text-[12px] font-medium text-muted">3 hal menunggu diselesaikan</span>
+        </div>
+        <div class="flex gap-[16px]">
+          {
+            actions.map((a) => (
+              <div class="flex min-w-0 flex-1 flex-col gap-[8px] rounded-card border border-neutral-100 bg-card p-[16px]">
+                <div class="flex items-center gap-[10px]">
+                  <span class:list={["flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-[9px]", a.box]}>
+                    <Icon name={a.icon} class:list={["h-[17px] w-[17px]", a.iconColor]} />
+                  </span>
+                  <span class="text-[14px] font-semibold text-heading">{a.title}</span>
+                </div>
+                <span class="text-[12px] text-muted">{a.desc}</span>
+                <span class="flex items-center gap-[6px]">
+                  <span class="text-[13px] font-semibold text-brand-primary">{a.link}</span>
+                  <Icon name="chevron-right" class="h-[14px] w-[14px] text-brand-primary" />
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Chart + tabel -->
+      <div class="flex gap-[20px]">
+        <div class="flex min-w-0 flex-1 flex-col rounded-card-lg bg-card">
+          <div class="flex items-center justify-between gap-[12px] px-[20px] pt-[18px] pb-[4px]">
+            <span class="flex flex-col gap-[2px]">
+              <span class="text-[16px] font-bold text-heading">Berat Setoran per Hari</span>
+              <span class="text-[12px] font-medium text-muted">7 hari terakhir · total 204,7 kg</span>
+            </span>
+            <span class="flex items-center gap-[16px]">
+              <span class="flex items-center gap-[7px]">
+                <span class="h-[10px] w-[10px] rounded-[3px] bg-brand-primary"></span>
+                <span class="text-[12px] font-medium text-neutral-fg">Plastik</span>
+              </span>
+              <span class="flex items-center gap-[7px]">
+                <span class="h-[10px] w-[10px] rounded-[3px] bg-brand-kertas"></span>
+                <span class="text-[12px] font-medium text-neutral-fg">Kertas &amp; Kardus</span>
+              </span>
+            </span>
+          </div>
+
+          <div class="flex gap-[12px] px-[20px] pt-[6px] pb-[18px]">
+            <div class="relative h-[250px] w-[36px] shrink-0">
+              {
+                yAxis.map((v, i) => (
+                  <span class="absolute right-0 text-[11px] text-faint" style={`top:${[2, 72, 142, 212][i]}px`}>
+                    {v}
+                  </span>
+                ))
+              }
+            </div>
+            <div class="relative min-w-0 flex-1">
+              <div class="absolute inset-x-0 top-[10px] h-px bg-line-soft"></div>
+              <div class="absolute inset-x-0 top-[80px] h-px bg-line-soft"></div>
+              <div class="absolute inset-x-0 top-[150px] h-px bg-line-soft"></div>
+              <div class="absolute inset-x-0 top-[220px] h-px bg-line-soft"></div>
+              <div class="flex items-end">
+                {
+                  chart.map((d) => (
+                    <div class="flex flex-1 items-end justify-center gap-[6px]">
+                      <span class="w-[25px] rounded-t-[6px] bg-linear-to-t from-chart-plastik-b to-chart-plastik-a" style={`height:${d.plastik}px`} />
+                      <span class="w-[25px] rounded-t-[6px] bg-linear-to-t from-chart-kertas-b to-chart-kertas-a" style={`height:${d.kertas}px`} />
+                    </div>
+                  ))
+                }
+              </div>
+              <div class="flex pt-[12px]">
+                {chart.map((d) => <span class="flex-1 text-center text-[11px] text-faint">{d.label}</span>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-[20px]">
+        <!-- Setoran terbaru -->
+        <div class="flex min-w-0 flex-[800] flex-col rounded-card-lg bg-card">
+          <div class="flex items-center justify-between gap-[10px] px-[20px] pt-[18px] pb-[6px]">
+            <span class="flex flex-col gap-[2px]">
+              <span class="text-[16px] font-bold text-heading">Setoran Terbaru</span>
+              <span class="text-[12px] font-medium text-muted">5 setoran terakhir dicatat</span>
+            </span>
+            <span class="flex items-center gap-[6px]">
+              <span class="text-[13px] font-semibold text-brand-primary">Lihat semua</span>
+              <Icon name="chevron-right" class="h-[14px] w-[14px] text-brand-primary" />
+            </span>
+          </div>
+          <div class="px-[20px]">
+            <div class="flex items-center border-b border-line-soft pb-[10px]">
+              <span class="w-[95px] text-[12px] font-semibold text-faint">Kode Setoran</span>
+              <span class="min-w-0 flex-1 text-[12px] font-semibold text-faint">Mahasiswa</span>
+              <span class="min-w-0 flex-1 text-[12px] font-semibold text-faint">Kategori</span>
+              <span class="w-[62px] text-right text-[12px] font-semibold text-faint">Berat</span>
+              <span class="w-[88px] text-right text-[12px] font-semibold text-faint">Nilai</span>
+              <span class="w-[150px] text-right text-[12px] font-semibold text-faint">Status</span>
+            </div>
+            {
+              setoran.map((row) => (
+                <div class="flex items-center border-b border-line-soft py-[13px]">
+                  <span class="w-[95px] text-[13px] font-medium text-body">{row.kode}</span>
+                  <span class="min-w-0 flex-1 truncate text-[13.5px] font-semibold text-heading">{row.nama}</span>
+                  <span class="min-w-0 flex-1 truncate text-[13px] text-body">{row.kat}</span>
+                  <span class="w-[62px] text-right text-[13.5px] font-semibold text-heading">{row.berat}</span>
+                  <span class="w-[88px] text-right text-[13.5px] font-semibold text-brand-primary">{row.nilai}</span>
+                  <span class="flex w-[150px] justify-end">
+                    <Badge label={row.badge} tone={row.tone} />
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+          <div class="flex flex-1 items-center justify-center gap-[6px] px-[20px] py-[10px]">
+            <span class="text-[13px] font-semibold text-brand-primary">Lihat semua setoran</span>
+            <Icon name="chevron-right" class="h-[14px] w-[14px] text-brand-primary" />
+          </div>
+        </div>
+
+        <!-- Pencairan terbaru -->
+        <div class="flex min-w-0 flex-[445] flex-col rounded-card-lg bg-card">
+          <div class="flex items-center justify-between gap-[10px] px-[20px] pt-[18px] pb-[6px]">
+            <span class="flex flex-col gap-[2px]">
+              <span class="text-[16px] font-bold text-heading">Pencairan Terbaru</span>
+              <span class="text-[12px] font-medium text-muted">3 menunggu peninjauan</span>
+            </span>
+            <span class="flex items-center gap-[6px]">
+              <span class="text-[13px] font-semibold text-brand-primary">Lihat semua</span>
+              <Icon name="chevron-right" class="h-[14px] w-[14px] text-brand-primary" />
+            </span>
+          </div>
+          <div class="px-[20px]">
+            {
+              pencairan.map((row) => (
+                <div class="flex items-center gap-[10px] border-b border-line-soft py-[11px]">
+                  <span class:list={["flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full", row.avatar]}>
+                    <span class="text-[11.5px] font-semibold">{row.initials}</span>
+                  </span>
+                  <span class="flex min-w-0 flex-1 flex-col gap-[1px]">
+                    <span class="truncate text-[13.5px] font-semibold text-heading">{row.nama}</span>
+                    <span class="text-[11.5px] text-faint">{row.kode}</span>
+                  </span>
+                  <span class="flex shrink-0 flex-col items-end gap-[4px]">
+                    <span class="text-[13.5px] font-bold text-heading">{row.amount}</span>
+                    <Badge label={row.badge} tone={row.tone} />
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+          <div class="flex flex-1 items-center justify-center gap-[6px] px-[20px] py-[10px]">
+            <span class="text-[13px] font-semibold text-brand-primary">Lihat semua pencairan</span>
+            <Icon name="chevron-right" class="h-[14px] w-[14px] text-brand-primary" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

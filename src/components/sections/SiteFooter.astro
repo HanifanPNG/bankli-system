@@ -1,0 +1,64 @@
+---
+import Icon from "../Icon.astro";
+
+const columns = [
+  {
+    title: "Jelajahi",
+    links: [
+      { label: "Tentang Bankli", href: "#tentang" },
+      { label: "Cara Kerja", href: "#cara-kerja" },
+      { label: "Kategori Sampah", href: "#kategori" },
+      { label: "Jadwal Layanan", href: "#jadwal" },
+      { label: "Pencairan Saldo", href: "#pencairan" },
+    ],
+  },
+  {
+    title: "Akun",
+    links: [
+      { label: "Masuk", href: "#" },
+      { label: "Daftar mahasiswa", href: "#" },
+    ],
+  },
+];
+---
+
+<footer class="w-full border-t border-line px-6 pt-[40px] pb-[22px] lg:px-[120px] lg:pt-[64px] lg:pb-[28px]">
+  <div class="mx-auto flex w-full max-w-[1200px] flex-col gap-[24px] lg:gap-[34px]">
+    <div class="flex flex-col gap-[24px] lg:flex-row lg:gap-[60px]">
+      <div class="flex w-full flex-col gap-[12px] lg:w-[390px] lg:shrink-0">
+        <div class="flex items-center gap-[10px]">
+          <span class="flex h-[36px] w-[36px] items-center justify-center rounded-full bg-brand-primary">
+            <Icon name="recycle" class="h-[19px] w-[19px] text-card" />
+          </span>
+          <span class="text-[20px] font-bold text-strong">Bankli</span>
+        </div>
+        <p class="text-[14px] leading-[22px] text-body">
+          Sistem informasi bank sampah mahasiswa — mencatat setoran, menghitung nilai, dan mengelola
+          saldo serta pencairan.
+        </p>
+      </div>
+
+      <div class="flex gap-[24px] lg:gap-[60px]">
+        {
+          columns.map((column) => (
+            <nav class="flex w-[200px] flex-col gap-[11px]" aria-label={column.title}>
+              <p class="text-[12px] font-bold tracking-[0.6px] text-label uppercase">{column.title}</p>
+              {column.links.map((link) => (
+                <a href={link.href} class="text-[14px] font-medium text-body transition-colors hover:text-brand-dark">
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="h-px w-full bg-line-soft"></div>
+
+    <div class="flex flex-col gap-[6px] lg:flex-row lg:items-center lg:justify-between">
+      <p class="text-[13px] text-muted">© 2026 Bankli · Sistem Bank Sampah Mahasiswa</p>
+      <p class="text-[13px] text-muted">Dikelola oleh pengurus Bankli</p>
+    </div>
+  </div>
+</footer>

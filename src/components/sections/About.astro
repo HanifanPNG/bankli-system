@@ -1,0 +1,169 @@
+---
+import Icon from "../Icon.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const cards = [
+  {
+    title: "Nilai setoran otomatis",
+    desc: "Nilai rupiah dihitung sistem dari berat sampah dan harga per kilogram yang berlaku saat itu.",
+    icon: "calculator",
+  },
+  {
+    title: "Pencatatan setoran rapi",
+    desc: "Pengurus memeriksa, menimbang, lalu mencatat kategori dan berat sampah langsung di sistem — bukan di buku manual.",
+    icon: "clipboard-list",
+  },
+  {
+    title: "Saldo & pencairan terpantau",
+    desc: "Mahasiswa melihat saldo, riwayat setoran, riwayat transaksi, dan status pengajuan pencairan.",
+    icon: "wallet",
+  },
+];
+
+const screens = [
+  {
+    src: "/images/mobile-mockup.png",
+    width: 2048,
+    height: 3072,
+    alt: "Tampilan beranda aplikasi Bankli di ponsel: saldo tersedia, setoran terbaru, dan status pencairan.",
+    // File mockup punya margin transparan lebar, jadi gambarnya di-zoom &
+    // digeser agar bodi ponsel (bukan margin) yang mengisi penuh frame.
+    zoom: "2.02",
+    shiftX: "-0.8%",
+    shiftY: "-25.4%",
+  },
+  {
+    src: "/images/tentang-mockup.png",
+    width: 3392,
+    height: 5056,
+    alt: "Tampilan riwayat setoran di aplikasi Bankli: kode setoran, berat, nilai rupiah, dan statusnya.",
+    zoom: "2.1",
+    shiftX: "-4.1%",
+    shiftY: "-13.2%",
+  },
+];
+---
+
+<!--
+  Section ini sengaja tanpa padding bawah: frame mockup dipotong tepat di
+  perbatasan section, jadi ponselnya terlihat menyembul (terpotong), bukan
+  mengambang terpotong di tengah ruang kosong.
+-->
+<section
+  id="tentang"
+  class="w-full border-t border-line px-6 pt-[56px] lg:px-[120px] lg:pt-[96px]"
+>
+  <div class="mx-auto flex w-full max-w-[1200px] flex-col gap-[40px] lg:gap-[64px]">
+    <SectionHeading
+      eyebrow="Tentang Bankli"
+      title="Satu sistem untuk seluruh alur bank sampah mahasiswa."
+      sub="Bankli menyatukan pencatatan setoran di stand, perhitungan nilai, saldo mahasiswa, hingga pengajuan pencairan saldo — supaya tidak ada lagi catatan manual yang tercecer."
+      class="mx-auto max-w-[780px]"
+    />
+
+    <div class="grid gap-[40px] lg:grid-cols-2 lg:items-center lg:gap-[48px]">
+      <!--
+        Grid 1 — kartu berantre horizontal, mengikuti susunan di design: tiap
+        kartu berikutnya bergeser ke kanan-bawah, sehingga kartu paling depan
+        tampil penuh dan kartu di belakangnya menyembul sedikit. Klik / Tab
+        sebuah kartu untuk memajukannya ke depan.
+      -->
+      <div data-deck class="relative min-h-[250px]">
+        {
+          cards.map((card, index) => (
+            <article
+              data-card
+              data-active={index === cards.length - 1 ? "true" : "false"}
+              data-depth={cards.length - 1 - index}
+              class="absolute top-0 left-0 flex w-[min(387px,calc(100%_-_96px))] flex-col rounded-card border border-line bg-card p-[24px] transition-[translate,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.34,1.3,0.64,1)] will-change-transform motion-reduce:transition-none data-[active=true]:border-brand-border data-[active=true]:shadow-[0_30px_60px_-28px_rgba(15,81,50,0.45)] data-[active=false]:shadow-[0_2px_8px_-2px_rgba(15,23,42,0.10)] data-[active=false]:hover:shadow-[0_16px_32px_-16px_rgba(15,23,42,0.28)] data-[depth=0]:z-30 data-[depth=0]:translate-x-[96px] data-[depth=0]:translate-y-[28px] data-[depth=1]:z-20 data-[depth=1]:translate-x-[48px] data-[depth=1]:translate-y-[14px] data-[depth=2]:z-10 data-[depth=2]:translate-x-0 data-[depth=2]:translate-y-0 sm:w-[min(387px,calc(100%_-_144px))] sm:data-[depth=0]:translate-x-[144px] sm:data-[depth=0]:translate-y-[36px] sm:data-[depth=1]:translate-x-[72px] sm:data-[depth=1]:translate-y-[18px]"
+            >
+              <button
+                type="button"
+                data-card-toggle
+                aria-label={`Tampilkan di depan: ${card.title}`}
+                class="absolute inset-0 z-30 cursor-pointer rounded-card"
+              />
+
+              <span class="flex h-[44px] w-[44px] items-center justify-center rounded-[12px] bg-brand-tint-soft">
+                <Icon name={card.icon} class="h-[22px] w-[22px] text-brand-primary" />
+              </span>
+
+              <h3 class="mt-[14px] text-[17px] font-semibold text-strong">{card.title}</h3>
+              <p class="mt-[12px] text-[14.5px] leading-[22px] text-body">{card.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <!--
+        Grid 2 — dua mockup aplikasi. Gambar di-zoom supaya bodi ponselnya
+        mengisi penuh lebar frame (file aslinya penuh margin transparan),
+        lalu frame hanya menampilkan bagian atasnya: sisa bawahnya terpotong
+        di tepi section, jadi ponselnya tampil besar dan menyembul.
+      -->
+      <div class="grid grid-cols-2 gap-[14px] lg:gap-[24px]">
+        {
+          screens.map((screen) => (
+            <div class="aspect-[1/2] overflow-hidden">
+              <img
+                src={screen.src}
+                alt={screen.alt}
+                width={screen.width}
+                height={screen.height}
+                loading="lazy"
+                decoding="async"
+                style={`--zoom:${screen.zoom};--shift-x:${screen.shiftX};--shift-y:${screen.shiftY}`}
+                class="w-full origin-top scale-[var(--zoom)] translate-x-[var(--shift-x)] translate-y-[var(--shift-y)]"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-deck]").forEach((deck) => {
+    const cards = Array.from(deck.querySelectorAll<HTMLElement>("[data-card]"));
+    const lastDepth = cards.length - 1;
+
+    // Selisih geser vertikal antar kartu, mengikuti breakpoint `sm`.
+    const depthStep = () => (window.matchMedia("(min-width: 40rem)").matches ? 18 : 14);
+
+    const resize = () => {
+      const step = depthStep();
+      let height = 0;
+
+      for (const card of cards) {
+        const depth = Number(card.dataset.depth ?? 0);
+        height = Math.max(height, card.offsetHeight + (lastDepth - depth) * step);
+      }
+
+      deck.style.height = `${Math.ceil(height)}px`;
+    };
+
+    const activate = (active: HTMLElement) => {
+      let depth = lastDepth;
+
+      for (const card of cards) {
+        const isActive = card === active;
+        card.dataset.active = String(isActive);
+        card.dataset.depth = String(isActive ? 0 : depth--);
+      }
+
+      resize();
+    };
+
+    for (const card of cards) {
+      const toggle = card.querySelector<HTMLElement>("[data-card-toggle]");
+
+      toggle?.addEventListener("click", () => activate(card));
+      // Fokus keyboard juga memajukan kartu supaya isinya terbaca.
+      toggle?.addEventListener("focus", () => activate(card));
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+  });
+</script>
