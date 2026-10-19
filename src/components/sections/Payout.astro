@@ -6,13 +6,11 @@ const options = [
   {
     title: "Tunai/Cash",
     desc: "Diambil langsung dari pengurus Bankli pada hari dan jam operasional stand.",
-    tag: "Butuh pengurus",
     icon: "banknote",
   },
   {
-    title: "Transfer DANA",
-    desc: "Diajukan melalui aplikasi, lalu diproses manual oleh admin ke nomor DANA-mu.",
-    tag: "Diproses admin",
+    title: "Transfer E-wallet/Bank",
+    desc: "Diajukan melalui aplikasi, lalu diproses manual oleh admin ke nomor E-wallet/Bank-mu.",
     icon: "send",
   },
 ];
@@ -38,27 +36,12 @@ const options = [
               <span class="flex h-[42px] w-[42px] items-center justify-center rounded-[12px] bg-brand-tint-soft lg:h-[46px] lg:w-[46px] lg:rounded-[13px]">
                 <Icon name={option.icon} class="h-[21px] w-[21px] text-brand-primary lg:h-[23px] lg:w-[23px]" />
               </span>
-              <span class="rounded-[99px] border border-line-soft bg-chip px-[11px] py-[5px] text-[11.5px] font-semibold text-label">
-                {option.tag}
-              </span>
             </div>
             <h3 class="text-[18px] font-semibold text-strong lg:text-[20px]">{option.title}</h3>
             <p class="text-[14px] leading-[22px] text-body lg:text-[15px] lg:leading-[23px]">{option.desc}</p>
           </article>
         ))
       }
-    </div>
-
-    <div
-      data-reveal="up"
-      data-reveal-delay="260"
-      class="flex items-start gap-[10px] rounded-card bg-info-bg p-[16px_18px] lg:mx-auto lg:w-full lg:max-w-[800px]"
-    >
-      <Icon name="info" class="h-[17px] w-[17px] shrink-0 text-info-fg" />
-      <p class="text-[13.5px] leading-[20px] font-medium text-info-text-dark">
-        Pengajuan yang disetujui belum berarti sudah dibayar. Pencairan selesai setelah pembayaran
-        dilakukan dan diverifikasi pengurus.
-      </p>
     </div>
   </div>
 </section>
