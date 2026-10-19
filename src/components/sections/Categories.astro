@@ -1,22 +1,25 @@
 ---
-import Icon from "../Icon.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 const categories = [
   {
     name: "Plastik, Botol & Tutup Botol",
     desc: "Botol air mineral, gelas plastik, tutup botol, dan kemasan plastik bersih yang sudah dipilah.",
-    icon: "milk",
+    image: "/images/plastik.webp",
+    imageAlt: "Tumpukan botol plastik bekas yang sudah dikumpulkan",
+    imageWidth: 640,
+    imageHeight: 360,
     media: "bg-brand-tint-soft",
-    iconColor: "text-chart-plastik-b",
     chips: ["Botol plastik", "Gelas plastik", "Tutup botol", "Kemasan plastik"],
   },
   {
     name: "Kardus & Kertas",
     desc: "Kardus bekas, kertas HVS, buku, dan kertas campuran yang masih kering dan bersih.",
-    icon: "package",
+    image: "/images/kardus.webp",
+    imageAlt: "Tumpukan kardus dan kertas bekas di dalam karton",
+    imageWidth: 612,
+    imageHeight: 407,
     media: "bg-brand-kertas-tint",
-    iconColor: "text-chart-kertas-b",
     chips: ["Kardus", "Kertas HVS", "Buku", "Kertas campuran"],
   },
 ];
@@ -42,9 +45,17 @@ const categories = [
             <div
               data-reveal="up"
               data-reveal-delay={String(categoryIndex * 80 + 240)}
-              class:list={["flex h-[176px] items-center justify-center", category.media]}
+              class:list={["h-[176px] overflow-hidden", category.media]}
             >
-              <Icon name={category.icon} class:list={["h-[66px] w-[66px]", category.iconColor]} />
+              <img
+                src={category.image}
+                alt={category.imageAlt}
+                width={category.imageWidth}
+                height={category.imageHeight}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover"
+              />
             </div>
 
             <div class="flex flex-col gap-[12px] p-[24px] lg:p-[24px_26px_26px_26px]">
