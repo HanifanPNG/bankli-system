@@ -1,0 +1,149 @@
+---
+import Icon from "../Icon.astro";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+
+const dates = [
+  { day: "Kam", date: "15", selected: true },
+  { day: "Jum", date: "16", selected: false },
+  { day: "Sab", date: "17", selected: false },
+  { day: "Sen", date: "19", selected: false },
+];
+
+const slots = [
+  { time: "08.00 – 10.00", quota: "Sisa 2", selected: true, disabled: false },
+  { time: "10.00 – 12.00", quota: "Sisa 1", selected: false, disabled: false },
+  { time: "13.00 – 15.00", quota: "Penuh", selected: false, disabled: true },
+];
+---
+
+<!-- Visual mockup of the scheduling screen. Decorative, not interactive. -->
+<div
+  aria-hidden="true"
+  class:list={[
+    "w-full rounded-[18px] border border-line bg-page p-[16px] lg:rounded-[20px] lg:bg-card lg:p-[22px]",
+    className,
+  ]}
+>
+  <div class="flex items-start gap-[11px]">
+    <span
+      class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[11px] bg-brand-tint-soft lg:h-[42px] lg:w-[42px] lg:rounded-[12px]"
+    >
+      <Icon name="calendar-days" class="h-[19px] w-[19px] text-brand-primary lg:h-[21px] lg:w-[21px]" />
+    </span>
+    <span class="flex flex-1 flex-col gap-[2px]">
+      <span class="text-[14.5px] font-semibold text-strong lg:text-[17px]">Jadwalkan setoran</span>
+      <span class="text-[11.5px] leading-[17px] text-muted lg:text-[12.5px] lg:leading-[18px]">
+        Pilih slot resmi dari Bankli
+      </span>
+    </span>
+    <span
+      class="shrink-0 rounded-full bg-brand-tint-soft px-[8px] py-[4px] text-[10px] font-semibold text-brand-dark lg:px-[10px] lg:py-[5px] lg:text-[11px]"
+    >
+      Min. 1 kg
+    </span>
+  </div>
+
+  <div class="my-[14px] h-px w-full bg-line-soft lg:my-[16px]"></div>
+
+  <div class="flex items-center justify-between">
+    <span class="text-[10.5px] font-semibold tracking-[0.6px] text-label uppercase lg:text-[11px]">
+      Pilih tanggal
+    </span>
+    <span class="text-[10.5px] text-muted lg:text-[11px]">Mulai besok</span>
+  </div>
+
+  <div class="mt-[8px] grid grid-cols-4 gap-[6px] lg:mt-[9px] lg:gap-[7px]">
+    {
+      dates.map((date) => (
+        <div
+          class:list={[
+            "flex h-[46px] flex-col items-center justify-center gap-[1px] rounded-[9px] border text-center lg:h-[50px] lg:rounded-[10px]",
+            date.selected
+              ? "border-brand-dark bg-brand-dark text-white"
+              : "border-line bg-card text-body lg:bg-page",
+          ]}
+        >
+          <span class:list={["text-[9px] font-medium tracking-[0.2px] uppercase lg:text-[10px]", date.selected ? "text-white/80" : "text-muted"]}>
+            {date.day}
+          </span>
+          <span class="text-[14px] font-semibold lg:text-[15px]">{date.date}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-[14px] flex items-center justify-between lg:mt-[16px]">
+    <span class="text-[10.5px] font-semibold tracking-[0.6px] text-label uppercase lg:text-[11px]">
+      Slot Bankli
+    </span>
+    <span class="text-[10.5px] text-muted lg:text-[11px]">Sisa kuota</span>
+  </div>
+
+  <div class="mt-[8px] flex flex-col gap-[6px]">
+    {
+      slots.map((slot) => (
+        <div
+          class:list={[
+            "flex h-[38px] items-center gap-[9px] rounded-[9px] border px-[10px] lg:h-[42px] lg:rounded-[10px] lg:px-[12px]",
+            slot.selected
+              ? "border-brand-primary bg-brand-tint-soft"
+              : slot.disabled
+                ? "border-line-soft bg-page"
+                : "border-line bg-card lg:bg-page",
+          ]}
+        >
+          <span
+            class:list={[
+              "flex h-[15px] w-[15px] shrink-0 items-center justify-center rounded-full border",
+              slot.selected ? "border-brand-primary bg-brand-primary" : "border-[#c8ccd4] bg-transparent",
+            ]}
+          >
+            {slot.selected && <span class="h-[5px] w-[5px] rounded-full bg-white"></span>}
+          </span>
+          <span
+            class:list={[
+              "flex-1 text-[12.5px] font-medium lg:text-[13.5px]",
+              slot.selected ? "text-brand-dark" : slot.disabled ? "text-muted" : "text-heading",
+            ]}
+          >
+            {slot.time}
+          </span>
+          <span
+            class:list={[
+              "text-[10.5px] font-medium lg:text-[11.5px]",
+              slot.selected ? "text-brand-dark" : "text-muted",
+            ]}
+          >
+            {slot.quota}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div
+    class="mt-[14px] flex items-center justify-between rounded-[10px] bg-card px-[10px] py-[8px] lg:mt-[16px] lg:rounded-[11px] lg:bg-page lg:px-[12px] lg:py-[9px]"
+  >
+    <span class="flex flex-col gap-[1px]">
+      <span class="text-[9.5px] font-semibold tracking-[0.5px] text-label uppercase lg:text-[10px]">
+        Estimasi
+      </span>
+      <span class="text-[12.5px] font-semibold text-strong lg:text-[13.5px]">2,5 kg</span>
+    </span>
+    <span class="text-right text-[10px] leading-[15px] text-muted lg:text-[11px] lg:leading-[16px]">
+      Minimal<br />1 kg
+    </span>
+  </div>
+
+  <div
+    class="mt-[12px] flex h-[38px] items-center justify-center gap-[6px] rounded-[10px] bg-brand-dark text-[12.5px] font-semibold text-white lg:mt-[14px] lg:h-[42px] lg:text-[13.5px]"
+  >
+    <Icon name="calendar-days" class="h-[14px] w-[14px]" />
+    Jadwalkan setoran
+  </div>
+</div>

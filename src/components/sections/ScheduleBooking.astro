@@ -1,0 +1,116 @@
+---
+import Icon from "../Icon.astro";
+import Button from "../ui/Button.astro";
+import BookingCard from "../mockup/BookingCard.astro";
+
+const benefits = [
+  {
+    title: "Slot resmi dari Bankli",
+    desc: "Pilih hari dan jam yang tersedia. Slot yang penuh ditandai, jadi kamu tidak perlu datang sia-sia.",
+    icon: "calendar",
+  },
+  {
+    title: "Kuota terlihat, adil untuk semua",
+    desc: "Sisa kuota tiap slot diperbarui pengurus. Kamu bisa memilih waktu yang paling longgar.",
+    icon: "user-check",
+  },
+  {
+    title: "Dibatalkan otomatis, tetap aman",
+    desc: "Kalau slot ditutup, booking dibatalkan dengan notifikasi. Riwayat dan saldo tidak berubah.",
+    icon: "shield-check",
+  },
+];
+---
+
+<section id="jadwal-setoran" class="w-full px-6 py-[56px] lg:px-[120px] lg:py-[88px]">
+  <div
+    class="mx-auto flex w-full max-w-[1200px] flex-col gap-[26px] lg:flex-row lg:items-center lg:gap-[56px] xl:gap-[80px]"
+  >
+    <div
+      data-reveal-group
+      class="flex w-full flex-col items-center gap-[16px] lg:w-[46%] lg:max-w-[540px] lg:shrink-0 lg:items-start"
+    >
+      <p
+        data-reveal="up"
+        class="text-center text-[11px] font-bold tracking-[1.4px] text-brand-dark uppercase lg:text-left lg:text-[12px] lg:tracking-[1.6px]"
+      >
+        Jadwal Setoran
+      </p>
+      <h2
+        data-reveal="up"
+        class="text-center text-[28px] leading-[1.16] font-medium tracking-[-0.6px] text-strong lg:text-left lg:text-[40px] lg:leading-[47px]"
+      >
+        Atur waktu setor, tanpa antre di stand.
+      </h2>
+      <p
+        data-reveal="up"
+        class="text-center text-[15px] leading-[1.6] text-body lg:text-left lg:text-[16.5px] lg:leading-[26px]"
+      >
+        Pilih slot yang disediakan Bankli, lalu datang sesuai jadwal. Setoran tetap ditimbang dan
+        dikonfirmasi pengurus di stand.
+      </p>
+
+      <div data-reveal="rise" data-reveal-delay="100" class="w-full pt-[4px] lg:hidden">
+        <BookingCard />
+      </div>
+
+      <div class="flex w-full flex-col gap-[12px] pt-[4px]">
+        {
+          benefits.map((benefit) => (
+            <div data-reveal="up" class="flex items-start gap-[11px]">
+              <span class="flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-[9px] bg-brand-tint-soft lg:h-[34px] lg:w-[34px] lg:rounded-[10px]">
+                <Icon
+                  name={benefit.icon}
+                  class="h-[16px] w-[16px] text-brand-primary lg:h-[17px] lg:w-[17px]"
+                />
+              </span>
+              <span class="flex flex-col gap-[2px]">
+                <span class="text-[14.5px] font-semibold text-strong">{benefit.title}</span>
+                <span class="text-[13px] leading-[20px] text-body lg:text-[13.5px] lg:leading-[21px]">
+                  {benefit.desc}
+                </span>
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        data-reveal="up"
+        class="flex w-full flex-col items-center gap-[12px] pt-[4px] lg:flex-row lg:gap-[18px]"
+      >
+        <Button
+          label="Jadwalkan setoran"
+          href="#"
+          variant="brand"
+          size="lg"
+          icon="calendar-days"
+          sweep
+          class="w-full lg:w-auto"
+        />
+        <a
+          href="#jadwal"
+          class="inline-flex items-center gap-[6px] text-[13.5px] font-semibold text-brand-dark hover:underline"
+        >
+          Lihat jadwal layanan
+          <Icon name="arrow-right" class="h-[14px] w-[14px]" />
+        </a>
+      </div>
+
+      <p data-reveal="up" class="text-center text-[11.5px] leading-[18px] text-muted lg:text-left">
+        Minimal setoran 1 kg · diatur pengurus Bankli.
+      </p>
+    </div>
+
+    <div
+      data-reveal="rise"
+      data-reveal-delay="100"
+      class="relative hidden w-full lg:block lg:h-[500px] lg:flex-1"
+    >
+      <div aria-hidden="true" class="absolute inset-x-0 top-[44px] h-[456px] rounded-[28px] bg-brand-tint-soft"></div>
+      <div class="relative mx-auto w-full max-w-[500px]">
+        <BookingCard class="shadow-[0_30px_60px_-32px_rgba(15,81,50,0.28)]" />
+      </div>
+    </div>
+  </div>
+</section>
